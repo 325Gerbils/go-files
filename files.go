@@ -57,6 +57,17 @@ func ListDir(dir string) []string {
 	return out
 }
 
+// SecureSave saves files and returns an event when write is confirmed
+func SecureSave(data, filepath string, done chan bool) {
+	Write(data, filepath)
+	ndata := Open(filepath)
+	if ndata == data {
+		done <- true
+	} else {
+		SecureSave(data, filepath, done)
+	}
+}
+
 func check(err error) {
 	if err != nil {
 		fmt.Println(err)
