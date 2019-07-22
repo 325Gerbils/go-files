@@ -14,8 +14,22 @@ func Open(filepath string) string {
 	return string(dat)
 }
 
+// Load returns the file contents as a string
+func Load(filepath string) string {
+	dat, err := ioutil.ReadFile(filepath)
+	check(err)
+	return string(dat)
+}
+
 // Write writes the input string to a file
 func Write(data, filepath string) {
+	message := []byte(data)
+	err := ioutil.WriteFile(filepath, message, 0644)
+	check(err)
+}
+
+// Save writes the input string to a file
+func Save(data, filepath string) {
 	message := []byte(data)
 	err := ioutil.WriteFile(filepath, message, 0644)
 	check(err)
@@ -59,7 +73,7 @@ func ListDir(dir string) []string {
 
 // SecureSave saves files and returns an event when write is confirmed
 func SecureSave(data, filepath string, done chan bool) {
-	Write(data, filepath)
+	Save(data, filepath)
 	ndata := Open(filepath)
 	if ndata == data {
 		done <- true
