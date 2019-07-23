@@ -82,6 +82,26 @@ func SecureSave(data, filepath string, done chan bool) {
 	}
 }
 
+// Append appends the given data to the file, and creates it if it doesn't exist
+func Append(filepath, data string) {
+	var dat string
+	if fileExists(filepath) {
+		dat = Open(filepath)
+		dat += data
+		Save(data, filepath)
+	} else {
+		Save(data, filepath)
+	}
+}
+
+func fileExists(filename string) bool {
+	info, err := os.Stat(filename)
+	if os.IsNotExist(err) {
+		return false
+	}
+	return !info.IsDir()
+}
+
 func check(err error) {
 	if err != nil {
 		fmt.Println(err)
