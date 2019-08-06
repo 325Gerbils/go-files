@@ -1,5 +1,21 @@
 package files
 
+/* TODO:
+
+Enable using URLs as either open or save targets,
+Open would basically be a wrapper for an http.Get
+Save would need token access to a cloud filesystem
+service like Cloudvar
+
+regex match the beginning to see if it is a web resource
+if it is, http.Get, encode body as string, return
+
+files.Login(token) // logs into cloudvar
+if token is set
+match the beginning of the url for cloudvar://
+if it is, do an http transfer to the cloudvar servers
+*/
+
 import (
 	"fmt"
 	"io/ioutil"
@@ -9,6 +25,13 @@ import (
 
 // Open returns the file contents as a string
 func Open(filepath string) string {
+	// if filepath[:7] == "http://" || filepath[:8] == "https://" {
+	// 	resp, err := http.Get(filepath)
+	// 	check(err)
+	// 	body, err := ioutil.ReadAll(resp.Body)
+	// 	check(err)
+	// 	return string(body)
+	// }
 	dat, err := ioutil.ReadFile(filepath)
 	check(err)
 	return string(dat)
@@ -71,6 +94,11 @@ func ListDir(dir string) []string {
 	return out
 }
 
+// ListAllDir returns list of all subdirectories in directory, scanning recursively
+func ListAllDir(dir string) []string {
+	// what
+}
+
 // SecureSave saves files and returns an event when write is confirmed
 func SecureSave(data, filepath string, done chan bool) {
 	Save(data, filepath)
@@ -85,7 +113,7 @@ func SecureSave(data, filepath string, done chan bool) {
 // Append appends the given data to the file, and creates it if it doesn't exist
 func Append(filepath, data string) {
 	var dat string
-	if fileExists(filepath) {
+	if Exists(filepath) {
 		dat = Open(filepath)
 		dat += data
 		Save(data, filepath)
@@ -94,7 +122,8 @@ func Append(filepath, data string) {
 	}
 }
 
-func fileExists(filename string) bool {
+// Exists checks if the file exists
+func Exists(filename string) bool {
 	info, err := os.Stat(filename)
 	if os.IsNotExist(err) {
 		return false
