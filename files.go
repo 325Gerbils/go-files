@@ -94,10 +94,10 @@ func ListDir(dir string) []string {
 	return out
 }
 
-// ListAllDir returns list of all subdirectories in directory, scanning recursively
-func ListAllDir(dir string) []string {
-	// what
-}
+// // ListAllDir returns list of all subdirectories in directory, scanning recursively
+// func ListAllDir(dir string) []string {
+// 	// what
+// }
 
 // SecureSave saves files and returns an event when write is confirmed
 func SecureSave(data, filepath string, done chan bool) {
