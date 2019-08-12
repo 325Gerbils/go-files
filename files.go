@@ -59,6 +59,13 @@ func Save(data, filepath string) {
 	check(err)
 }
 
+// Create creates an empty file
+func Create(filepath string) {
+	if !Exists(filepath) {
+		Save("", filepath)
+	}
+}
+
 // List returns list of files in directory
 func List(dir string) []string {
 	files, err := ioutil.ReadDir(".")
