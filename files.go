@@ -21,6 +21,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"sync"
 )
 
 // Open returns the file contents as a string
@@ -135,4 +136,64 @@ func check(err error) {
 	if err != nil {
 		fmt.Println(err)
 	}
+}
+
+// Fs is a virtual filesystem
+type Fs map[string]string // filepath, contents (contents can be URL?)
+
+// MakeFs makes a virtual filesystem
+func MakeFs() (out Fs) {
+	m := sync.Mutex{} // Protect against data races
+	m.Lock()
+	out = make(Fs)
+	m.Unlock()
+	return
+}
+
+// Open returns the file contents as a string
+func (fs Fs) Open(filename string) string {
+	m := sync.Mutex{} // Protect against data races
+	m.Lock()
+	if file, ok := fs[filename]; ok {
+		m.Unlock()
+		return file
+	}
+	m.Unlock()
+	return ""
+}
+
+// Save saves the contents of the file to the virtual filesystem
+func (fs Fs) Save(data, filepath string) {
+	m := sync.Mutex{} // Protect against data races
+	m.Lock()
+	if data != "" && filepath != "" {
+		fs[filepath] = data
+	}
+	m.Unlock()
+}
+
+// Exists checks if file exists
+func (fs Fs) Exists(filename string) bool {
+	return fs[filename] != ""
+}
+
+// Delete deletes a file
+func (fs Fs) Delete(filename string) {
+	m := sync.Mutex{} // Protect against data races
+	m.Lock()
+	delete(fs, filename)
+	m.Unlock()
+}
+
+// Write is the same as Save
+func (fs Fs) Write(data, filepath string) {
+	fs.Save(data, filepath)
+}
+
+// List returns the list of files as a []string
+func (fs Fs) List() (out []string) {
+	for k := range fs {
+		out = append(out, k)
+	}
+	return
 }
