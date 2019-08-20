@@ -19,6 +19,8 @@ if it is, do an http transfer to the cloudvar servers
 import (
 	"fmt"
 	"io/ioutil"
+	"log"
+	"net/http"
 	"os"
 	"path/filepath"
 	"sync"
@@ -137,6 +139,22 @@ func Exists(filename string) bool {
 		return false
 	}
 	return !info.IsDir()
+}
+
+// GetFormFile returns the file (contents and name) associated with the form field
+func GetFormFile(fname string, r *http.Request) (content, name string) {
+	r.ParseMultipartForm(32 << 20)
+	file, handler, err := r.FormFile("file")
+	filename := handler.Filename
+	if err != nil {
+		log.Println(err)
+	}
+	defer file.Close()
+	fileBytes, err := ioutil.ReadAll(file)
+	if err != nil {
+		log.Println(err)
+	}
+	return string(fileBytes), filename
 }
 
 func check(err error) {
