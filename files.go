@@ -157,6 +157,26 @@ func GetFormFile(fname string, r *http.Request) (content, name string) {
 	return string(fileBytes), filename
 }
 
+// GetFormFiles returns the list of files associated with the form field
+func GetFormFiles(fname string, r *http.Request) []string {
+	r.ParseMultipartForm(32 << 20)
+	fhs := r.MultipartForm.File[fname]
+	files := make([]string, len(fhs))
+	for i, fh := range fhs {
+		f, err := fh.Open()
+		if err != nil {
+			log.Println(err)
+		}
+		defer f.Close()
+		fileBytes, err := ioutil.ReadAll(f)
+		if err != nil {
+			log.Println(err)
+		}
+		files[i] = string(fileBytes)
+	}
+	return files
+}
+
 func check(err error) {
 	if err != nil {
 		fmt.Println(err)
