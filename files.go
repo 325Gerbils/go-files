@@ -109,6 +109,22 @@ func ListDir(dir string) []string {
 // 	// what
 // }
 
+// Delete deletes the files at the given path
+func Delete(path string) {
+	err := os.RemoveAll(path)
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+// Remove removes the files at the given path
+func Remove(path string) {
+	err := os.RemoveAll(path)
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
 // SecureSave saves files and returns an event when write is confirmed
 func SecureSave(data, filepath string, done chan bool) {
 	Save(data, filepath)
