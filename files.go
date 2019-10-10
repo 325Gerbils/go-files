@@ -196,7 +196,8 @@ func GetFormFiles(fname string, r *http.Request) ([]string, []string) {
 	return files, filenames
 }
 
-func findImages(path string) (out []string) {
+// FindImages returns list of image files in dir
+func FindImages(path string) (out []string) {
 	imgexts := []string{"jpeg", "jpg", "png", "gif", "bmp", "ico", "tiff", "raw", "ai"}
 	filesList := ListAll(path)
 	for _, file := range filesList {
@@ -208,7 +209,8 @@ func findImages(path string) (out []string) {
 	}
 	return
 }
-func findCAD(path string) (out []string) {
+// FindCAD returns list of CAD files in dir
+func FindCAD(path string) (out []string) {
 	cadexts := []string{"dwg", "stl", "pdf", "svg", "dxf", "drw", "prt", "asm", "igs", "iges", "step", "ipt", "iam", "sldprt", "sldasm", "obj"}
 	filesList := ListAll(path)
 	for _, file := range filesList {
@@ -220,7 +222,8 @@ func findCAD(path string) (out []string) {
 	}
 	return
 }
-func findVideo(path string) (out []string) {
+// FindVideo returns list of video files in dir
+func FindVideo(path string) (out []string) {
 	videoexts := []string{"avi", "mov", "mp4", "webm", "flv", "mkv", "wmv", "m4v"}
 	filesList := ListAll(path)
 	for _, file := range filesList {
@@ -232,7 +235,8 @@ func findVideo(path string) (out []string) {
 	}
 	return
 }
-func findAudio(path string) (out []string) {
+// FindAudio returns list of audio files in dir
+func FindAudio(path string) (out []string) {
 	audioexts := []string{"pcm", "wav", "mp3", "aif", "m4a", "aiff", "aac", "ogg", "wma", "flac", "alac"}
 	filesList := ListAll(path)
 	for _, file := range filesList {
@@ -244,7 +248,8 @@ func findAudio(path string) (out []string) {
 	}
 	return
 }
-func findCode(path string) (out []string) {
+// FindCode returns list of code files in dir
+func FindCode(path string) (out []string) {
 	codeexts := []string{"asm", "c", "cc", "cpp", "cs", "ino", "py", "java", "php", "h", "html", "css", "js", "go", "rb", "pl", "ts", "sql", "r", "kt", "rs", "bat", "sh"}
 	filesList := ListAll(path)
 	for _, file := range filesList {
@@ -256,7 +261,8 @@ func findCode(path string) (out []string) {
 	}
 	return
 }
-func findDataFiles(path string) (out []string) {
+// FindDataFiles returns list of data files in dir
+func FindDataFiles(path string) (out []string) {
 	dataexts := []string{"csv", "xls", "xlsx", "json", "xml", "db", "proto"}
 	filesList := ListAll(path)
 	for _, file := range filesList {
