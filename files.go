@@ -198,7 +198,7 @@ func GetFormFiles(fname string, r *http.Request) ([]string, []string) {
 
 func findImages(path string) (out []string) {
 	imgexts := []string{"jpeg", "jpg", "png", "gif", "bmp", "ico", "tiff", "raw", "ai"}
-	filesList := files.ListAll(path)
+	filesList := ListAll(path)
 	for _, file := range filesList {
 		for _, ext := range imgexts {
 			if filepath.Ext(file) == ext {
