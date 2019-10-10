@@ -196,6 +196,79 @@ func GetFormFiles(fname string, r *http.Request) ([]string, []string) {
 	return files, filenames
 }
 
+func findImages(path string) (out []string) {
+	imgexts := []string{"jpeg", "jpg", "png", "gif", "bmp", "ico", "tiff", "raw", "ai"}
+	filesList := files.ListAll(path)
+	for _, file := range filesList {
+		for _, ext := range imgexts {
+			if filepath.Ext(file) == ext {
+				out = append(out, file)
+			}
+		}
+	}
+	return
+}
+func findCAD(path string) (out []string) {
+	cadexts := []string{"dwg", "stl", "pdf", "svg", "dxf", "drw", "prt", "asm", "igs", "iges", "step", "ipt", "iam", "sldprt", "sldasm", "obj"}
+	filesList := files.ListAll(path)
+	for _, file := range filesList {
+		for _, ext := range cadexts {
+			if filepath.Ext(file) == ext {
+				out = append(out, file)
+			}
+		}
+	}
+	return
+}
+func findVideo(path string) (out []string) {
+	videoexts := []string{"avi", "mov", "mp4", "webm", "flv", "mkv", "wmv", "m4v"}
+	filesList := files.ListAll(path)
+	for _, file := range filesList {
+		for _, ext := range videoexts {
+			if filepath.Ext(file) == ext {
+				out = append(out, file)
+			}
+		}
+	}
+	return
+}
+func findAudio(path string) (out []string) {
+	audioexts := []string{"pcm", "wav", "mp3", "aif", "m4a", "aiff", "aac", "ogg", "wma", "flac", "alac"}
+	filesList := files.ListAll(path)
+	for _, file := range filesList {
+		for _, ext := range audioexts {
+			if filepath.Ext(file) == ext {
+				out = append(out, file)
+			}
+		}
+	}
+	return
+}
+func findCode(path string) (out []string) {
+	codeexts := []string{"asm", "c", "cc", "cpp", "cs", "ino", "py", "java", "php", "h", "html", "css", "js", "go", "rb", "pl", "ts", "sql", "r", "kt", "rs", "bat", "sh"}
+	filesList := files.ListAll(path)
+	for _, file := range filesList {
+		for _, ext := range codeexts {
+			if filepath.Ext(file) == ext {
+				out = append(out, file)
+			}
+		}
+	}
+	return
+}
+func findDataFiles(path string) (out []string) {
+	dataexts := []string{"csv", "xls", "xlsx", "json", "xml", "db", "proto"}
+	filesList := files.ListAll(path)
+	for _, file := range filesList {
+		for _, ext := range dataexts {
+			if filepath.Ext(file) == ext {
+				out = append(out, file)
+			}
+		}
+	}
+	return
+}
+
 func check(err error) {
 	if err != nil {
 		fmt.Println(err)
