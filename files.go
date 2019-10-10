@@ -70,7 +70,7 @@ func Create(filepath string) {
 
 // List returns list of files in directory
 func List(dir string) []string {
-	files, err := ioutil.ReadDir(".")
+	files, err := ioutil.ReadDir(dir)
 	check(err)
 	out := []string{}
 	for _, file := range files {
@@ -93,7 +93,7 @@ func ListAll(dir string) []string {
 
 // ListDir returns list of subdirectories in directory
 func ListDir(dir string) []string {
-	files, err := ioutil.ReadDir(".")
+	files, err := ioutil.ReadDir(dir)
 	check(err)
 	out := []string{}
 	for _, file := range files {
