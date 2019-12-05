@@ -23,7 +23,6 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"sync"
 )
 
 // Open returns the file contents as a string
@@ -196,7 +195,7 @@ func GetFormFiles(fname string, r *http.Request) ([]string, []string) {
 	return files, filenames
 }
 
-// FindImages returns list of image files in dir. 
+// FindImages returns list of image files in dir.
 // Image extensions: jpeg, jpg, png, gif, bmp, ico, tiff, raw, ai
 func FindImages(path string) (out []string) {
 	imgexts := []string{"jpeg", "jpg", "png", "gif", "bmp", "ico", "tiff", "raw", "ai"}
@@ -210,8 +209,9 @@ func FindImages(path string) (out []string) {
 	}
 	return
 }
-// FindCAD returns list of CAD files in dir. 
-// CAD extensions: dwg, stl, pdf, svg, dxf, drw, prt, asm, igs, iges, step, 
+
+// FindCAD returns list of CAD files in dir.
+// CAD extensions: dwg, stl, pdf, svg, dxf, drw, prt, asm, igs, iges, step,
 // ipt, iam, sldprt, sldasm, obj
 func FindCAD(path string) (out []string) {
 	cadexts := []string{"dwg", "stl", "pdf", "svg", "dxf", "drw", "prt", "asm", "igs", "iges", "step", "ipt", "iam", "sldprt", "sldasm", "obj"}
@@ -225,7 +225,8 @@ func FindCAD(path string) (out []string) {
 	}
 	return
 }
-// FindVideo returns list of video files in dir. 
+
+// FindVideo returns list of video files in dir.
 // Video extensions: avi, mov, mp4, webm, flv, mkv, wmv, m4v
 func FindVideo(path string) (out []string) {
 	videoexts := []string{"avi", "mov", "mp4", "webm", "flv", "mkv", "wmv", "m4v"}
@@ -239,7 +240,8 @@ func FindVideo(path string) (out []string) {
 	}
 	return
 }
-// FindAudio returns list of audio files in dir. 
+
+// FindAudio returns list of audio files in dir.
 // Audio extensions: pcm, wav, mp3, aif, m4a, aiff, aac, ogg, wma, flac, alac
 func FindAudio(path string) (out []string) {
 	audioexts := []string{"pcm", "wav", "mp3", "aif", "m4a", "aiff", "aac", "ogg", "wma", "flac", "alac"}
@@ -253,8 +255,9 @@ func FindAudio(path string) (out []string) {
 	}
 	return
 }
-// FindCode returns list of code files in dir. 
-// Code extensions: c, cc, cpp, cs, ino, py, java, php, h, html, css, js, 
+
+// FindCode returns list of code files in dir.
+// Code extensions: c, cc, cpp, cs, ino, py, java, php, h, html, css, js,
 // go, rb, pl, ts, sql, r, kt, rs, bat, sh
 func FindCode(path string) (out []string) {
 	codeexts := []string{"c", "cc", "cpp", "cs", "ino", "py", "java", "php", "h", "html", "css", "js", "go", "rb", "pl", "ts", "sql", "r", "kt", "rs", "bat", "sh"}
@@ -268,7 +271,8 @@ func FindCode(path string) (out []string) {
 	}
 	return
 }
-// FindDataFiles returns list of data files in dir. 
+
+// FindDataFiles returns list of data files in dir.
 // Data files extensions: csv, xls, xlsx, json, xml, db, proto
 func FindDataFiles(path string) (out []string) {
 	dataexts := []string{"csv", "xls", "xlsx", "json", "xml", "db", "proto"}
@@ -283,8 +287,16 @@ func FindDataFiles(path string) (out []string) {
 	return
 }
 
+// GetBody returns the body (as []byte) of an *http.Request
+func GetBody(r *http.Request) string {
+	n, err := ioutil.ReadAll(r.Body)
+	check(err)
+	n = n[1 : len(n)-1]
+	return string(n)
+}
+
 func check(err error) {
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
 }
