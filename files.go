@@ -291,7 +291,7 @@ func FindDataFiles(path string) (out []string) {
 func GetBody(r *http.Request) string {
 	n, err := ioutil.ReadAll(r.Body)
 	check(err)
-	n = n[1 : len(n)]
+	//n = n[0 : len(n)]
 	return string(n)
 }
 
