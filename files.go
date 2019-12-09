@@ -287,7 +287,7 @@ func FindDataFiles(path string) (out []string) {
 	return
 }
 
-// GetBody returns the body (as []byte) of an *http.Request
+// GetBody returns the body (as string) of an *http.Request
 func GetBody(r *http.Request) string {
 	n, err := ioutil.ReadAll(r.Body)
 	check(err)
