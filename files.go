@@ -202,7 +202,7 @@ func FindImages(path string) (out []string) {
 	filesList := ListAll(path)
 	for _, file := range filesList {
 		for _, ext := range imgexts {
-			if filepath.Ext(file) == ext {
+			if filepath.Ext(file) == "."+ext {
 				out = append(out, file)
 			}
 		}
@@ -218,7 +218,7 @@ func FindCAD(path string) (out []string) {
 	filesList := ListAll(path)
 	for _, file := range filesList {
 		for _, ext := range cadexts {
-			if filepath.Ext(file) == ext {
+			if filepath.Ext(file) == "."+ext {
 				out = append(out, file)
 			}
 		}
@@ -233,7 +233,7 @@ func FindVideo(path string) (out []string) {
 	filesList := ListAll(path)
 	for _, file := range filesList {
 		for _, ext := range videoexts {
-			if filepath.Ext(file) == ext {
+			if filepath.Ext(file) == "."+ext {
 				out = append(out, file)
 			}
 		}
@@ -248,7 +248,7 @@ func FindAudio(path string) (out []string) {
 	filesList := ListAll(path)
 	for _, file := range filesList {
 		for _, ext := range audioexts {
-			if filepath.Ext(file) == ext {
+			if filepath.Ext(file) == "."+ext {
 				out = append(out, file)
 			}
 		}
@@ -264,7 +264,7 @@ func FindCode(path string) (out []string) {
 	filesList := ListAll(path)
 	for _, file := range filesList {
 		for _, ext := range codeexts {
-			if filepath.Ext(file) == ext {
+			if filepath.Ext(file) == "."+ext {
 				out = append(out, file)
 			}
 		}
@@ -279,7 +279,7 @@ func FindDataFiles(path string) (out []string) {
 	filesList := ListAll(path)
 	for _, file := range filesList {
 		for _, ext := range dataexts {
-			if filepath.Ext(file) == ext {
+			if filepath.Ext(file) == "."+ext {
 				out = append(out, file)
 			}
 		}
