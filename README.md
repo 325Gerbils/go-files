@@ -212,3 +212,5 @@ http.HandleFunc("/getBody", func(w http.ResponseWriter, r *http.Request){
 * Make some functions thread-safe (probably via mutex)
 * Add `files.ListAllDir(path)` that scans subfolders recursively
 * Change order of arguments for `files.Save()` and `files.Write()` from `data, filepath` to `filepath, data`
+
+![](go-files.png | width=100)
