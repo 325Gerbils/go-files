@@ -172,13 +172,12 @@ func GetFormFile(fname string, r *http.Request) (content, name string) {
 	return string(fileBytes), filename
 }
 
-// GetFormFiles returns the list of files associated with the form field
-func GetFormFiles(fname string, r *http.Request) ([]string, []string) {
+// GetFormFiles returns the list of files associated with the form field as a map[filename]contents
+func GetFormFiles(fname string, r *http.Request) map[string]string {
 	r.ParseMultipartForm(32 << 20)
 	fhs := r.MultipartForm.File[fname]
-	files := make([]string, len(fhs))
-	filenames := make([]string, len(fhs))
-	for i, fh := range fhs {
+	files := make(map[string]string, len(fhs))
+	for _, fh := range fhs {
 		filename := fh.Filename
 		f, err := fh.Open()
 		if err != nil {
@@ -189,10 +188,9 @@ func GetFormFiles(fname string, r *http.Request) ([]string, []string) {
 		if err != nil {
 			log.Println(err)
 		}
-		files[i] = string(fileBytes)
-		filenames[i] = filename
+		files[filename] = string(fileBytes)
 	}
-	return files, filenames
+	return files
 }
 
 // FindImages returns list of image files in dir.
