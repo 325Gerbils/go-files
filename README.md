@@ -1,6 +1,8 @@
 # go-files
 
-A simple utils library for handling basic file read/write/check functions. Error handling is weak - will print an error via `log.Println(err)` and returns `""`, but will not notify the parent function that there was an error. This was deliberate - adding `if err != nil {}` checks after each file operation was annoying in the ioutil library, and I didn't want to recreate that problem. I'm  currently searching for a better (but just as simple!) way to handle errors. Perhaps a global channel?
+A simple utils library for handling basic file read/write/check functions. 
+
+Error handling is weak - will print an error via `log.Println(err)` and returns `""`, but will not notify the parent function that there was an error. This was deliberate - adding `if err != nil {}` checks after each file operation was annoying in the ioutil library, and I didn't want to recreate that problem. I'm  currently searching for a better (but just as simple!) way to handle errors. Perhaps a global channel?
 
 ### Installation:
 
